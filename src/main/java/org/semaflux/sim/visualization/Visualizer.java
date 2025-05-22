@@ -743,8 +743,8 @@ public class Visualizer {
                     // Atualizar as cores e efeitos baseado na fase atual
                     if (phase != null) {
                         switch (phase) {
-                            case NS_GREEN_EW_RED:
-                                // Norte-Sul Verde
+                            case NORTE_SUL_VERDE_LESTE_OESTE_VERMELHO:
+                              
                                 display.nsLine.setStroke(Color.LIMEGREEN);
                                 
                                 // Efeito de brilho para verde
@@ -757,7 +757,7 @@ public class Visualizer {
                                 display.ewLine.setStroke(Color.RED);
                                 break;
                                 
-                            case NS_YELLOW_EW_RED:
+                            case NORTE_SUL_AMARELO_LESTE_OESTE_VERMELHO:
                                 // Norte-Sul Amarelo
                                 display.nsLine.setStroke(Color.YELLOW);
                                 
@@ -771,7 +771,7 @@ public class Visualizer {
                                 display.ewLine.setStroke(Color.RED);
                                 break;
                                 
-                            case NS_RED_EW_GREEN:
+                            case NORTE_SUL_VERMELHO_LESTE_OESTE_VERDE:
                                 // Norte-Sul Vermelho
                                 display.nsLine.setStroke(Color.RED);
                                 
@@ -785,7 +785,7 @@ public class Visualizer {
                                 display.ewLine.setEffect(ewGreenShadow);
                                 break;
                                 
-                            case NS_RED_EW_YELLOW:
+                            case NORTE_SUL_VERMELHO_LESTE_OESTE_AMARELO:
                                 // Norte-Sul Vermelho
                                 display.nsLine.setStroke(Color.RED);
                                 

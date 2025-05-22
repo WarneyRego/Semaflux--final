@@ -1,6 +1,6 @@
 package org.semaflux.sim;
 
-import org.semaflux.sim.control.JsonParser;
+import org.semaflux.sim.control.leitorJson;
 import org.semaflux.sim.core.Grafo;
 import org.semaflux.sim.simulação.Config;
 import org.semaflux.sim.simulação.Simulador;
@@ -17,6 +17,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 
 public class InicioSis extends Application {
@@ -40,7 +42,7 @@ public class InicioSis extends Application {
         String cssPath = getClass().getResource("/css/modern-style.css").toExternalForm();
         configScene.getStylesheets().add(cssPath);
         
-        primaryStage.setTitle("Configuração da Simulação de Mobilidade Urbana");
+        primaryStage.setTitle("SemaFlux - Configuração");
         primaryStage.setScene(configScene);
         primaryStage.show();
     }
@@ -50,27 +52,31 @@ public class InicioSis extends Application {
      * @param config Configuração com os parâmetros definidos pelo usuário
      * @param primaryStage O Stage principal da aplicação
      * @param selectedMap Nome do mapa selecionado pelo usuário
+     * @param arquivoPersonalizado Arquivo JSON personalizado (pode ser null)
      */
-    public void iniciarSimulacao(Config config, Stage primaryStage, String selectedMap) {
+    public void iniciarSimulacao(Config config, Stage primaryStage, String selectedMap, File arquivoPersonalizado) {
         Grafo graph;
 
         try {
-            // Selecionar o arquivo de mapa com base na escolha do usuário
-            String resourcePath;
-            if (selectedMap.contains("Centro")) {
-                resourcePath = "/mapas/CentroTeresinaPiauiBrazil.json";
+            // Verificar se está usando um arquivo personalizado
+            if (selectedMap.equals("Personalizado") && arquivoPersonalizado != null) {
+                // Carregar grafo a partir do arquivo personalizado
+                try (FileInputStream fileInputStream = new FileInputStream(arquivoPersonalizado)) {
+                    graph = leitorJson.carregarGrafoDoFluxo(fileInputStream, config);
+                }
             } else {
-                resourcePath = "/mapas/JoqueiTeresinaPiauiBrazil.json";
+                // Usar o mapa padrão (Jóquei)
+                String resourcePath = "/mapas/JoqueiTeresinaPiauiBrazil.json";
+                
+                InputStream jsonInputStream = getClass().getResourceAsStream(resourcePath);
+                if (jsonInputStream == null) {
+                    String errorMessage = "Erro Crítico: Não foi possível localizar o arquivo JSON do mapa: " + resourcePath;
+                    System.err.println(errorMessage);
+                    mostrarErroFatal(primaryStage, errorMessage);
+                    return;
+                }
+                graph = leitorJson.carregarGrafoDoFluxo(jsonInputStream, config);
             }
-            
-            InputStream jsonInputStream = getClass().getResourceAsStream(resourcePath);
-            if (jsonInputStream == null) {
-                String errorMessage = "Erro Crítico: Não foi possível localizar o arquivo JSON do mapa: " + resourcePath;
-                System.err.println(errorMessage);
-                mostrarErroFatal(primaryStage, errorMessage);
-                return;
-            }
-            graph = JsonParser.loadGraphFromStream(jsonInputStream, config);
 
         } catch (Exception e) {
             String errorMessage = "Erro Crítico ao carregar o grafo do JSON: " + e.getMessage();

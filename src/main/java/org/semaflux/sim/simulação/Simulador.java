@@ -24,7 +24,7 @@ public class Simulador implements Runnable {
         this.config = config;
         this.vehicles = new ListaLigada<>();
         this.stats = new Estatisticas();
-        this.generator = new GeradorVeiculos(graph, config.getVehicleGenerationRate());
+        this.generator = new GeradorVeiculos(graph, config.getTaxaGeracaoVeiculos());
         this.time = 0.0;
         // this.generationStopped = false; // Inicializada na declaração do campo
 
@@ -41,7 +41,7 @@ public class Simulador implements Runnable {
     public void run() {
         double deltaTime = 1.0; // Passo de simulação em segundos
 
-        while (running && time < config.getSimulationDuration()) {
+        while (running && time < config.getDuracaoSimulacao()) {
             // Aplicar o fator de velocidade ao deltaTime para ajustar a velocidade da simulação
             double adjustedDeltaTime = deltaTime * speedFactor;
             
@@ -54,7 +54,7 @@ public class Simulador implements Runnable {
             }
 
             // Verifica se deve parar de gerar veículos e atualiza a flag
-            if (!generationStopped && time > config.getVehicleGenerationStopTime()) {
+            if (!generationStopped && time > config.getParadaGeracao()) {
                 generationStopped = true; // Seta a flag para parar futuras gerações
             }
 
@@ -169,7 +169,7 @@ public class Simulador implements Runnable {
     }
 
     private void generateVehicles(double deltaTime) {
-        double numExpectedVehicles = deltaTime * config.getVehicleGenerationRate();
+        double numExpectedVehicles = deltaTime * config.getTaxaGeracaoVeiculos();
         int numToGenerate = (int) numExpectedVehicles;
         if (Math.random() < (numExpectedVehicles - numToGenerate)) {
             numToGenerate++;
@@ -190,7 +190,7 @@ public class Simulador implements Runnable {
         if (graph.getTrafficLights() == null) return;
         for (SinalTransito tl : graph.getTrafficLights()) {
             if (tl != null) {
-                tl.update(deltaTime, config.isPeakHour());
+                tl.update(deltaTime, config.isHorarioPico());
             }
         }
     }

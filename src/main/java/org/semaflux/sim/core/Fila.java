@@ -1,31 +1,39 @@
 package org.semaflux.sim.core;
 
-public class Fila { // Se fosse genérica: public class CustomQueue<T extends Vehicle> ou similar
+public class Fila { 
+    private int size;
+    private Veiculo back;
     private Veiculo front;
-    private Veiculo rear;
-    private int size; // Adicionado para size O(1)
 
     public Fila() {
-        this.front = null;
-        this.rear = null;
         this.size = 0;
+        this.back = null;
+        this.front = null;
+    }
+
+    public boolean isEmpty() {
+        return front == null; 
+    }
+    
+    public int size() {
+        return size;
+    }
+    
+    public Veiculo peek() { 
+        return front;
     }
 
     public void enqueue(Veiculo vehicle) {
-       
-        // O campo 'next' do veículo é específico para esta estrutura de fila.
-        // Se o veículo pudesse estar em outra fila ou lista encadeada que também use 'vehicle.next',
-        // isso seria um problema. Mas para filas de semáforo dedicadas, é funcional.
         vehicle.next = null;
 
-        if (isEmpty()) { // Usando o novo método isEmpty()
+        if (isEmpty()) {
+            back = vehicle;
             front = vehicle;
-            rear = vehicle;
         } else {
-            rear.next = vehicle;
-            rear = vehicle;
+            back.next = vehicle;
+            back = vehicle;
         }
-        size++; // Incrementar tamanho
+        size++; 
     }
 
     public Veiculo dequeue() {
@@ -35,25 +43,12 @@ public class Fila { // Se fosse genérica: public class CustomQueue<T extends Ve
         Veiculo vehicleToDequeue = front;
         front = front.next;
 
-        if (front == null) { // Fila ficou vazia
-            rear = null;
+        if (front == null) { 
+            back = null;
         }
 
-        vehicleToDequeue.next = null; // Desconectar o veículo
-        size--; // Decrementar tamanho
+        vehicleToDequeue.next = null; 
+        size--; 
         return vehicleToDequeue;
-    }
-
-    // Agora size() é O(1)
-    public int size() {
-        return size;
-    }
-
-    public boolean isEmpty() {
-        return front == null; // ou size == 0;
-    }
-
-    public Veiculo peek() { // Opcional: ver o primeiro sem remover
-        return front;
     }
 }

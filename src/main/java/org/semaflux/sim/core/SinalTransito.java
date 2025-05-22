@@ -29,7 +29,7 @@ public class SinalTransito {
         this.nodeId = nodeId;
         this.initialJsonDirection = jsonOriginalDirection != null ? jsonOriginalDirection.toLowerCase() : "unknown";
         this.config = config;
-        this.mode = config.getTrafficLightMode();
+        this.mode = config.getModoSemaforo();
 
         this.directionQueues = new Fila[4];
         for (int i = 0; i < 4; i++) {
@@ -52,25 +52,25 @@ public class SinalTransito {
                 break;
             case 2:
                 this.controlStrategy = new FilaAdaptativa(
-                        config.getAdaptiveBaseGreen(),
-                        config.getAdaptiveYellowTime(),
-                        config.getAdaptiveMaxGreen(),       // Passando o teto MÁXIMO de verde
+                        config.getAdaptiveVerdeBase(),
+                        config.getAdaptiveAmareloBase(),
+                        config.getAdaptiveMaxVerde(),       // Passando o teto MÁXIMO de verde
                         config.getAdaptiveQueueThreshold(),
-                        config.getAdaptiveMinGreenTime(),   // Passando o MÍNIMO de verde
-                        config.getAdaptiveIncrement(),      // Passando o incremento por veículo
-                        config.getAdaptiveMinRedTime(),     // Adicionando o tempo vermelho mínimo
-                        config.getAdaptiveMaxRedTime()      // Adicionando o tempo vermelho máximo
+                        config.getAdaptiveMinTempoVerde(),   // Passando o MÍNIMO de verde
+                        config.getAdaptiveAumento(),      // Passando o incremento por veículo
+                        config.getAdaptiveMinTempoVermelho(),     // Adicionando o tempo vermelho mínimo
+                        config.getAdaptiveTempoMaxVermelho()      // Adicionando o tempo vermelho máximo
                 );
                 break;
             case 3:
                 this.controlStrategy = new EconomiaEnergia(
-                        config.getEnergySavingBaseGreen(),
-                        config.getEnergySavingYellowTime(),
-                        config.getEnergySavingMinGreen(),
-                        config.getEnergySavingThreshold(),
-                        config.getEnergySavingMaxGreenTime(), // Passando o teto máximo
-                        config.getEnergySavingMinRedTime(),   // Adicionando o tempo vermelho mínimo
-                        config.getEnergySavingMaxRedTime()    // Adicionando o tempo vermelho máximo
+                        config.getVerdeBaseEconomia(),
+                        config.getAmareloEconomia(),
+                        config.getMinimoVerdeEconomia(),
+                        config.getLimiarEconomia(),
+                        config.getTempoMaximoVerdeEconomia(), // Passando o teto máximo
+                        config.getMinimoVermelhoEconomia(),   // Adicionando o tempo vermelho mínimo
+                        config.getMaximoVermelhoEconomia()    // Adicionando o tempo vermelho máximo
                 );
                 break;
             default:
@@ -88,7 +88,7 @@ public class SinalTransito {
 
         if (this.currentPhase == null) {
             // A estratégia DEVE definir a fase inicial. Se não, logar e definir um padrão.
-            setCurrentPhase(FaseDoSemaforo.NS_GREEN_EW_RED, config.getFixedGreenTime());
+            setCurrentPhase(FaseDoSemaforo.NORTE_SUL_VERDE_LESTE_OESTE_VERMELHO, config.getFixedGreenTime());
             logPhaseChange(); // Loga a fase de fallback
         }
     }
@@ -142,7 +142,7 @@ public class SinalTransito {
 
         if (this.phaseTimer <= 0) {
             if (this.controlStrategy == null) {
-                setCurrentPhase(FaseDoSemaforo.NS_GREEN_EW_RED, config.getFixedGreenTime());
+                setCurrentPhase(FaseDoSemaforo.NORTE_SUL_VERDE_LESTE_OESTE_VERMELHO, config.getFixedGreenTime());
                 logPhaseChange();
                 return;
             }
@@ -154,7 +154,7 @@ public class SinalTransito {
             } else {
                 this.phaseTimer = config.getFixedGreenTime();
                 if (this.currentPhase == null) {
-                    setCurrentPhase(FaseDoSemaforo.NS_GREEN_EW_RED, this.phaseTimer);
+                    setCurrentPhase(FaseDoSemaforo.NORTE_SUL_VERDE_LESTE_OESTE_VERMELHO, this.phaseTimer);
                     logPhaseChange();
                 }
             }

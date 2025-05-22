@@ -1,120 +1,145 @@
 package org.semaflux.sim.simulação;
 
 public class Config {
-    private double vehicleGenerationRate;
-    private double simulationDuration;
-    private int trafficLightMode;
+    // Parâmetros gerais de simulação
+    private double duracaoSimulacao;
+    private double taxaGeracaoVeiculos;
+    private double ParadaGeracao;
+    private boolean horarioPico;
+    private int modoSemaforo;
     private int redirectThreshold;
-    private boolean peakHour;
-
+    
+    // Parâmetros do modo fixo
     private double fixedGreenTime;
     private double fixedYellowTime;
-    private double fixedRedTime; // Novo parâmetro para o tempo vermelho fixo
+    private double fixedRedTime;
 
-    private double adaptiveBaseGreen;
-    private double adaptiveYellowTime;
-    private double adaptiveMinRedTime; // Novo parâmetro para o tempo vermelho mínimo adaptativo
-    private double adaptiveMaxRedTime; // Novo parâmetro para o tempo vermelho máximo adaptativo
-    private double adaptiveMaxGreen; // Teto máximo para o verde adaptativo
-    private double adaptiveMinGreenTime; // Mínimo absoluto para verde adaptativo
-    private double adaptiveIncrement; // Incremento por veículo acima do threshold
+    // Parâmetros do modo adaptativo
+    private double adaptiveVerdeBase;
+    private double adaptiveAmareloBase;
+    private double adaptiveMinTempoVerde;
+    private double adaptiveMaxVerde;
+    private double adaptiveMinTempoVermelho;
+    private double adaptiveTempoMaxVermelho;
+    private double adaptiveAumento;
     private int adaptiveQueueThreshold;
 
-    private double energySavingBaseGreen;
-    private double energySavingYellowTime;
-    private double energySavingMinRedTime; // Novo parâmetro para o tempo vermelho mínimo no modo economia
-    private double energySavingMaxRedTime; // Novo parâmetro para o tempo vermelho máximo no modo economia
-    private double energySavingMinGreen;
-    private int energySavingThreshold;
-    private double energySavingMaxGreenTime; // Teto máximo para verde no modo economia
-
-    private double vehicleGenerationStopTime;
+    // Parâmetros do modo economia de energia
+    private double verdeBaseEconomia;
+    private double AmareloEconomia;
+    private double MinimoVerdeEconomia;
+    private double tempoMaximoVerdeEconomia;
+    private double MinimoVermelhoEconomia;
+    private double MaximoVermelhoEconomia;
+    private int limiarEconomia;
 
     public Config() {
-        this.vehicleGenerationRate = 0.3; // Ajustado para testes de calibração
-        this.simulationDuration = 600.0;
-        this.trafficLightMode = 1;
-        this.redirectThreshold = 0; // Redirecionamento desabilitado por padrão
-        this.peakHour = false;
-        this.vehicleGenerationStopTime = 300.0;
+        // Inicialização de parâmetros gerais
+        this.duracaoSimulacao = 600.0;
+        this.taxaGeracaoVeiculos = 0.3;
+        this.ParadaGeracao = 300.0;
+        this.horarioPico = false;
+        this.modoSemaforo = 1;
+        this.redirectThreshold = 0;
 
+        // Inicialização do modo fixo
         this.fixedGreenTime = 15.0;
         this.fixedYellowTime = 3.0;
-        this.fixedRedTime = 18.0; // Tempo vermelho padrão = tempo verde + tempo amarelo da direção perpendicular
+        this.fixedRedTime = 18.0;
 
-        this.adaptiveBaseGreen = 10.0;
-        this.adaptiveYellowTime = 3.0;
-        this.adaptiveMinRedTime = 8.0; // Tempo vermelho mínimo para o modo adaptativo
-        this.adaptiveMaxRedTime = 33.0; // Tempo vermelho máximo para o modo adaptativo
-        this.adaptiveMaxGreen = 30.0;
-        this.adaptiveMinGreenTime = 5.0;
-        this.adaptiveIncrement = 1.0;
+        // Inicialização do modo adaptativo
+        this.adaptiveVerdeBase = 10.0;
+        this.adaptiveAmareloBase = 3.0;
+        this.adaptiveMinTempoVerde = 5.0;
+        this.adaptiveMaxVerde = 30.0;
+        this.adaptiveMinTempoVermelho = 8.0;
+        this.adaptiveTempoMaxVermelho = 33.0;
+        this.adaptiveAumento = 1.0;
         this.adaptiveQueueThreshold = 3;
 
-        this.energySavingBaseGreen = 20.0;
-        this.energySavingYellowTime = 3.0;
-        this.energySavingMinRedTime = 10.0; // Tempo vermelho mínimo para o modo economia
-        this.energySavingMaxRedTime = 43.0; // Tempo vermelho máximo para o modo economia
-        this.energySavingMinGreen = 7.0;
-        this.energySavingThreshold = 1;
-        this.energySavingMaxGreenTime = 40.0;
+        // Inicialização do modo economia
+        this.verdeBaseEconomia = 20.0;
+        this.AmareloEconomia = 3.0;
+        this.MinimoVerdeEconomia = 7.0;
+        this.tempoMaximoVerdeEconomia = 40.0;
+        this.MinimoVermelhoEconomia = 10.0;
+        this.MaximoVermelhoEconomia = 43.0;
+        this.limiarEconomia = 1;
     }
 
-    // Getters e Setters
-    public double getVehicleGenerationRate() { return vehicleGenerationRate; }
-    public void setVehicleGenerationRate(double rate) { this.vehicleGenerationRate = rate; }
+    // Getters e Setters para parâmetros gerais
+    public double getDuracaoSimulacao() { return duracaoSimulacao; }
+    public void setDuracaoSimulacao(double duration) { this.duracaoSimulacao = duration; }
 
-    public double getSimulationDuration() { return simulationDuration; }
-    public void setSimulationDuration(double duration) { this.simulationDuration = duration; }
+    public double getTaxaGeracaoVeiculos() { return taxaGeracaoVeiculos; }
+    public void setTaxaGeracaoVeiculos(double rate) { this.taxaGeracaoVeiculos = rate; }
 
-    public int getTrafficLightMode() { return trafficLightMode; }
-    public void setTrafficLightMode(int mode) { this.trafficLightMode = mode; }
+    public double getParadaGeracao() { return ParadaGeracao; }
+    public void setParadaGeracao(double vehicleGenerationStopTime) { this.ParadaGeracao = vehicleGenerationStopTime; }
+
+    public boolean isHorarioPico() { return horarioPico; }
+    public void setHorarioPico(boolean peakHour) { this.horarioPico = peakHour; }
+
+    public int getModoSemaforo() { return modoSemaforo; }
+    public void setModoSemaforo(int mode) { this.modoSemaforo = mode; }
 
     public int getRedirectThreshold() { return redirectThreshold; }
     public void setRedirectThreshold(int threshold) { this.redirectThreshold = threshold; }
 
-    public boolean isPeakHour() { return peakHour; }
-    public void setPeakHour(boolean peakHour) { this.peakHour = peakHour; }
-
+    // Getters e Setters para modo fixo
     public double getFixedGreenTime() { return fixedGreenTime; }
     public void setFixedGreenTime(double fixedGreenTime) { this.fixedGreenTime = fixedGreenTime; }
+
     public double getFixedYellowTime() { return fixedYellowTime; }
     public void setFixedYellowTime(double fixedYellowTime) { this.fixedYellowTime = fixedYellowTime; }
+
     public double getFixedRedTime() { return fixedRedTime; }
     public void setFixedRedTime(double fixedRedTime) { this.fixedRedTime = fixedRedTime; }
 
-    public double getAdaptiveBaseGreen() { return adaptiveBaseGreen; }
-    public void setAdaptiveBaseGreen(double adaptiveBaseGreen) { this.adaptiveBaseGreen = adaptiveBaseGreen; }
-    public double getAdaptiveYellowTime() { return adaptiveYellowTime; }
-    public void setAdaptiveYellowTime(double adaptiveYellowTime) { this.adaptiveYellowTime = adaptiveYellowTime; }
-    public double getAdaptiveMinRedTime() { return adaptiveMinRedTime; }
-    public void setAdaptiveMinRedTime(double adaptiveMinRedTime) { this.adaptiveMinRedTime = adaptiveMinRedTime; }
-    public double getAdaptiveMaxRedTime() { return adaptiveMaxRedTime; }
-    public void setAdaptiveMaxRedTime(double adaptiveMaxRedTime) { this.adaptiveMaxRedTime = adaptiveMaxRedTime; }
-    public double getAdaptiveMaxGreen() { return adaptiveMaxGreen; }
-    public void setAdaptiveMaxGreen(double adaptiveMaxGreen) { this.adaptiveMaxGreen = adaptiveMaxGreen; }
-    public double getAdaptiveIncrement() { return adaptiveIncrement; }
-    public void setAdaptiveIncrement(double adaptiveIncrement) { this.adaptiveIncrement = adaptiveIncrement; }
+    // Getters e Setters para modo adaptativo
+    public double getAdaptiveVerdeBase() { return adaptiveVerdeBase; }
+    public void setAdaptiveVerdeBase(double adaptiveBaseGreen) { this.adaptiveVerdeBase = adaptiveBaseGreen; }
+
+    public double getAdaptiveAmareloBase() { return adaptiveAmareloBase; }
+    public void setAdaptiveAmareloBase(double adaptiveYellowTime) { this.adaptiveAmareloBase = adaptiveYellowTime; }
+
+    public double getAdaptiveMinTempoVerde() { return adaptiveMinTempoVerde; }
+    public void setAdaptiveMinTempoVerde(double adaptiveMinGreenTime) { this.adaptiveMinTempoVerde = adaptiveMinGreenTime; }
+
+    public double getAdaptiveMaxVerde() { return adaptiveMaxVerde; }
+    public void setAdaptiveMaxVerde(double adaptiveMaxGreen) { this.adaptiveMaxVerde = adaptiveMaxGreen; }
+
+    public double getAdaptiveMinTempoVermelho() { return adaptiveMinTempoVermelho; }
+    public void setAdaptiveMinTempoVermelho(double adaptiveMinRedTime) { this.adaptiveMinTempoVermelho = adaptiveMinRedTime; }
+
+    public double getAdaptiveTempoMaxVermelho() { return adaptiveTempoMaxVermelho; }
+    public void setAdaptiveTempoMaxVermelho(double adaptiveMaxRedTime) { this.adaptiveTempoMaxVermelho = adaptiveMaxRedTime; }
+
+    public double getAdaptiveAumento() { return adaptiveAumento; }
+    public void setAdaptiveAumento(double adaptiveIncrement) { this.adaptiveAumento = adaptiveIncrement; }
+
     public int getAdaptiveQueueThreshold() { return adaptiveQueueThreshold; }
     public void setAdaptiveQueueThreshold(int adaptiveQueueThreshold) { this.adaptiveQueueThreshold = adaptiveQueueThreshold; }
-    public double getAdaptiveMinGreenTime() { return adaptiveMinGreenTime; }
-    public void setAdaptiveMinGreenTime(double adaptiveMinGreenTime) { this.adaptiveMinGreenTime = adaptiveMinGreenTime; }
 
-    public double getEnergySavingBaseGreen() { return energySavingBaseGreen; }
-    public void setEnergySavingBaseGreen(double energySavingBaseGreen) { this.energySavingBaseGreen = energySavingBaseGreen; }
-    public double getEnergySavingYellowTime() { return energySavingYellowTime; }
-    public void setEnergySavingYellowTime(double energySavingYellowTime) { this.energySavingYellowTime = energySavingYellowTime; }
-    public double getEnergySavingMinRedTime() { return energySavingMinRedTime; }
-    public void setEnergySavingMinRedTime(double energySavingMinRedTime) { this.energySavingMinRedTime = energySavingMinRedTime; }
-    public double getEnergySavingMaxRedTime() { return energySavingMaxRedTime; }
-    public void setEnergySavingMaxRedTime(double energySavingMaxRedTime) { this.energySavingMaxRedTime = energySavingMaxRedTime; }
-    public double getEnergySavingMinGreen() { return energySavingMinGreen; }
-    public void setEnergySavingMinGreen(double energySavingMinGreen) { this.energySavingMinGreen = energySavingMinGreen; }
-    public int getEnergySavingThreshold() { return energySavingThreshold; }
-    public void setEnergySavingThreshold(int energySavingThreshold) { this.energySavingThreshold = energySavingThreshold; }
-    public double getEnergySavingMaxGreenTime() { return energySavingMaxGreenTime; }
-    public void setEnergySavingMaxGreenTime(double energySavingMaxGreenTime) { this.energySavingMaxGreenTime = energySavingMaxGreenTime; }
+    // Getters e Setters para modo economia
+    public double getVerdeBaseEconomia() { return verdeBaseEconomia; }
+    public void setVerdeBaseEconomia(double energySavingBaseGreen) { this.verdeBaseEconomia = energySavingBaseGreen; }
 
-    public double getVehicleGenerationStopTime() { return vehicleGenerationStopTime; }
-    public void setVehicleGenerationStopTime(double vehicleGenerationStopTime) { this.vehicleGenerationStopTime = vehicleGenerationStopTime; }
+    public double getAmareloEconomia() { return AmareloEconomia; }
+    public void setAmareloEconomia(double energySavingYellowTime) { this.AmareloEconomia = energySavingYellowTime; }
+
+    public double getMinimoVerdeEconomia() { return MinimoVerdeEconomia; }
+    public void setMinimoVerdeEconomia(double energySavingMinGreen) { this.MinimoVerdeEconomia = energySavingMinGreen; }
+
+    public double getTempoMaximoVerdeEconomia() { return tempoMaximoVerdeEconomia; }
+    public void setTempoMaximoVerdeEconomia(double energySavingMaxGreenTime) { this.tempoMaximoVerdeEconomia = energySavingMaxGreenTime; }
+
+    public double getMinimoVermelhoEconomia() { return MinimoVermelhoEconomia; }
+    public void setMinimoVermelhoEconomia(double energySavingMinRedTime) { this.MinimoVermelhoEconomia = energySavingMinRedTime; }
+
+    public double getMaximoVermelhoEconomia() { return MaximoVermelhoEconomia; }
+    public void setMaximoVermelhoEconomia(double energySavingMaxRedTime) { this.MaximoVermelhoEconomia = energySavingMaxRedTime; }
+
+    public int getLimiarEconomia() { return limiarEconomia; }
+    public void setLimiarEconomia(int energySavingThreshold) { this.limiarEconomia = energySavingThreshold; }
 }
