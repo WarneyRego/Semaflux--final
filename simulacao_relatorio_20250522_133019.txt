@@ -1,0 +1,31 @@
+=================================================================
+                RELATÓRIO DE SIMULAÇÃO - SEMAFLUX                
+=================================================================
+
+Data/Hora: 22/05/2025 13:30:19
+
+ESTATÍSTICAS GERAIS
+-----------------------------------------------------------------
+Tempo Total de Simulação: 602,00 segundos
+Total de Veículos Gerados: 94
+Veículos Chegados ao Destino: 93
+Taxa de Chegada: 98,94%
+
+MÉTRICAS DE TEMPO
+-----------------------------------------------------------------
+Tempo Médio de Viagem: 169,41 segundos
+Tempo Máximo de Viagem: 385,00 segundos
+Tempo Médio de Espera: 31,45 segundos
+Tempo Máximo de Espera: 90,00 segundos
+
+COMBUSTÍVEL E CONGESTIONAMENTO
+-----------------------------------------------------------------
+Consumo Total de Combustível: 4,983 litros
+Consumo Médio por Veículo: 0,054 litros
+Pico de Congestionamento: 68,38%
+Média de Congestionamento: 0,00%
+
+
+=================================================================
+                          FIM DO RELATÓRIO                      
+=================================================================

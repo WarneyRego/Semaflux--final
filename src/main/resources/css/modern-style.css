@@ -1,0 +1,235 @@
+/* Estilos modernos para a aplicação SemaFlux */
+
+.root {
+    -fx-font-family: 'Segoe UI', Arial, sans-serif;
+    -fx-background-color: #f5f7fa;
+}
+
+/* Estilos para os cabeçalhos */
+.header-title {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 3, 0, 0, 2);
+}
+
+.header-subtitle {
+    -fx-font-size: 16px;
+    -fx-text-fill: #7f8c8d;
+    -fx-font-style: italic;
+}
+
+/* Botões */
+.button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-background-radius: 4px;
+    -fx-padding: 8px 16px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 2, 0, 0, 1);
+}
+
+.button:hover {
+    -fx-background-color: #2980b9;
+}
+
+.button:pressed {
+    -fx-background-color: #1c6ea4;
+}
+
+.primary-button {
+    -fx-background-color: #2ecc71;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.primary-button:hover {
+    -fx-background-color: #27ae60;
+}
+
+.secondary-button {
+    -fx-background-color: #95a5a6;
+}
+
+.secondary-button:hover {
+    -fx-background-color: #7f8c8d;
+}
+
+/* Painéis */
+.panel {
+    -fx-background-color: white;
+    -fx-background-radius: 6px;
+    -fx-border-radius: 6px;
+    -fx-border-color: #e0e0e0;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 4, 0, 0, 2);
+    -fx-padding: 16px;
+}
+
+/* Campos de texto */
+.text-field, .text-area, .combo-box {
+    -fx-background-color: white;
+    -fx-border-color: #dcdde1;
+    -fx-background-radius: 4px;
+    -fx-border-radius: 4px;
+    -fx-padding: 8px;
+}
+
+.text-field:focused, .text-area:focused, .combo-box:focused {
+    -fx-border-color: #3498db;
+    -fx-effect: dropshadow(gaussian, rgba(52, 152, 219, 0.2), 4, 0, 0, 0);
+}
+
+/* Sliders */
+.slider {
+    -fx-pref-height: 24px;
+}
+
+.slider .track {
+    -fx-background-color: #ecf0f1;
+    -fx-pref-height: 8px;
+    -fx-background-radius: 4px;
+}
+
+.slider .thumb {
+    -fx-background-color: #3498db;
+    -fx-pref-height: 16px;
+    -fx-pref-width: 16px;
+    -fx-background-radius: 8px;
+}
+
+/* Labels */
+.label {
+    -fx-text-fill: #2c3e50;
+    -fx-font-size: 14px;
+}
+
+.section-label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+    -fx-padding: 0 0 8px 0;
+}
+
+/* TitledPane */
+.titled-pane {
+    -fx-text-fill: #2c3e50;
+}
+
+.titled-pane > .title {
+    -fx-background-color: #ecf0f1;
+    -fx-font-weight: bold;
+    -fx-padding: 10px;
+}
+
+.titled-pane:expanded > .title {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+}
+
+.titled-pane > .content {
+    -fx-background-color: white;
+    -fx-border-color: #ecf0f1;
+}
+
+/* Accordion */
+.accordion {
+    -fx-background-color: transparent;
+}
+
+/* CheckBox */
+.check-box .box {
+    -fx-background-color: white;
+    -fx-border-color: #bdc3c7;
+    -fx-border-radius: 3px;
+}
+
+.check-box:selected .box {
+    -fx-background-color: #3498db;
+    -fx-border-color: #3498db;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: white;
+}
+
+/* TabPane */
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: #f5f7fa;
+}
+
+.tab-pane .tab {
+    -fx-background-color: #ecf0f1;
+    -fx-background-radius: 4 4 0 0;
+}
+
+.tab-pane .tab:selected {
+    -fx-background-color: white;
+}
+
+.tab-pane .tab:selected .focus-indicator {
+    -fx-border-color: #3498db;
+}
+
+/* Elementos específicos da aplicação */
+.config-grid {
+    -fx-hgap: 15;
+    -fx-vgap: 15;
+    -fx-padding: 15;
+}
+
+.stat-label {
+    -fx-font-weight: bold;
+    -fx-text-fill: #3498db;
+}
+
+.alert-box {
+    -fx-background-color: #f8d7da;
+    -fx-text-fill: #721c24;
+    -fx-padding: 10px;
+    -fx-background-radius: 4px;
+    -fx-border-radius: 4px;
+    -fx-border-color: #f5c6cb;
+}
+
+.info-box {
+    -fx-background-color: #d1ecf1;
+    -fx-text-fill: #0c5460;
+    -fx-padding: 10px;
+    -fx-background-radius: 4px;
+    -fx-border-radius: 4px;
+    -fx-border-color: #bee5eb;
+}
+
+/* Visualizador do mapa */
+.map-view {
+    -fx-border-color: #dcdde1;
+    -fx-border-width: 1px;
+    -fx-border-radius: 6px;
+}
+
+/* Elementos de semáforo */
+.traffic-light-green {
+    -fx-fill: #2ecc71;
+}
+
+.traffic-light-yellow {
+    -fx-fill: #f1c40f;
+}
+
+.traffic-light-red {
+    -fx-fill: #e74c3c;
+}
+
+/* Veículos */
+.vehicle {
+    -fx-stroke: #2c3e50;
+    -fx-stroke-width: 1;
+}
+
+/* Tooltip */
+.tooltip {
+    -fx-background-color: #34495e;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-padding: 8px;
+} 
