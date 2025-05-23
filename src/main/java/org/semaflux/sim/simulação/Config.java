@@ -35,27 +35,27 @@ public class Config {
 
     public Config() {
         // Inicialização de parâmetros gerais
-        this.duracaoSimulacao = 600.0;
-        this.taxaGeracaoVeiculos = 0.3;
-        this.ParadaGeracao = 300.0;
+        this.duracaoSimulacao = 1200.0;
+        this.taxaGeracaoVeiculos = 0.5;
+        this.ParadaGeracao = 800.0;
         this.horarioPico = false;
         this.modoSemaforo = 1;
         this.redirectThreshold = 0;
 
         // Inicialização do modo fixo
-        this.fixedGreenTime = 15.0;
-        this.fixedYellowTime = 3.0;
-        this.fixedRedTime = 18.0;
+        this.fixedGreenTime = 13.0;
+        this.fixedYellowTime = 1.5;
+        this.fixedRedTime = 13.0;
 
-        // Inicialização do modo adaptativo
-        this.adaptiveVerdeBase = 10.0;
-        this.adaptiveAmareloBase = 3.0;
-        this.adaptiveMinTempoVerde = 5.0;
-        this.adaptiveMaxVerde = 30.0;
-        this.adaptiveMinTempoVermelho = 8.0;
-        this.adaptiveTempoMaxVermelho = 33.0;
-        this.adaptiveAumento = 1.0;
-        this.adaptiveQueueThreshold = 3;
+        // Inicialização do modo adaptativo (valores otimizados)
+        this.adaptiveVerdeBase = 15.0;        // Aumentado para melhor escoamento inicial
+        this.adaptiveAmareloBase = 2.0;       // Mantido para segurança
+        this.adaptiveMinTempoVerde = 7.0;     // Aumentado para garantir tempo mínimo adequado
+        this.adaptiveMaxVerde = 35.0;         // Aumentado para lidar com picos de tráfego
+        this.adaptiveMinTempoVermelho = 10.0; // Ajustado para balancear as direções
+        this.adaptiveTempoMaxVermelho = 40.0; // Aumentado para comportar situações de alto tráfego
+        this.adaptiveAumento = 1.5;           // Aumentado para responder mais rapidamente às filas
+        this.adaptiveQueueThreshold = 2;      // Reduzido para ser mais sensível a mudanças no tráfego
 
         // Inicialização do modo economia
         this.verdeBaseEconomia = 20.0;
