@@ -3,7 +3,7 @@
 SemaFlux é um simulador de semáforos e fluxo de tráfego urbano desenvolvido em Java utilizando JavaFX. O sistema permite simular o tráfego urbano com diferentes estratégias de controle de semáforos, visualizando o comportamento do fluxo de veículos em tempo real.
 
 <p align="center">
-  <img src="SemaFlux.png" alt="SemaFlux Logo" width="300">
+  <img src="src/main/resources/css/SemaFlux.png" alt="SemaFlux Logo" width="300">
 </p>
 
 ## Funcionalidades

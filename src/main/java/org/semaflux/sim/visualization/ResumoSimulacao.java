@@ -30,7 +30,10 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -510,11 +513,34 @@ public class ResumoSimulacao {
     
     private void exportarRelatorio() {
         try {
+            // Criar FileChooser
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Salvar Relatório da Simulação");
+            
+            // Configurar filtro de extensão
+            fileChooser.getExtensionFilters().add(
+                new ExtensionFilter("Arquivos de Texto", "*.txt")
+            );
+            
+            // Definir nome inicial do arquivo
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss");
             String timestamp = dateFormat.format(new Date());
-            String filename = "simulacao_relatorio_" + timestamp + ".txt";
+            fileChooser.setInitialFileName("simulacao_relatorio_" + timestamp + ".txt");
             
-            FileWriter writer = new FileWriter(filename);
+            // Mostrar diálogo de salvamento
+            File arquivoSelecionado = fileChooser.showSaveDialog(stage);
+            
+            // Se o usuário cancelou a seleção, retornar
+            if (arquivoSelecionado == null) {
+                return;
+            }
+            
+            // Garantir que o arquivo tenha a extensão .txt
+            final File arquivo = arquivoSelecionado.getName().toLowerCase().endsWith(".txt") 
+                ? arquivoSelecionado 
+                : new File(arquivoSelecionado.getAbsolutePath() + ".txt");
+            
+            FileWriter writer = new FileWriter(arquivo);
             
             // Escrever cabeçalho
             writer.write("=================================================================\n");
@@ -569,7 +595,7 @@ public class ResumoSimulacao {
             writer.close();
             
             Platform.runLater(() -> {
-                Label confirmacao = new Label("Relatório exportado com sucesso: " + filename);
+                Label confirmacao = new Label("Relatório exportado com sucesso: " + arquivo.getName());
                 confirmacao.setStyle("-fx-text-fill: green;");
                 if (stage.getScene().getRoot() instanceof BorderPane) {
                     BorderPane root = (BorderPane) stage.getScene().getRoot();
