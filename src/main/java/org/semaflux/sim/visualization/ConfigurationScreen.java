@@ -293,24 +293,29 @@ public class ConfigurationScreen {
         Label taxaLabel = new Label("Taxa de Geração de Veículos:");
         grid.add(taxaLabel, 0, row);
 
+        HBox sliderBox = new HBox(10);
+        sliderBox.setAlignment(Pos.CENTER_LEFT);
+        
         taxaGeracaoVeiculosSlider = new Slider(0.1, 1.0, config.getTaxaGeracaoVeiculos());
         taxaGeracaoVeiculosSlider.setShowTickLabels(true);
         taxaGeracaoVeiculosSlider.setShowTickMarks(true);
         taxaGeracaoVeiculosSlider.setMajorTickUnit(0.1);
         taxaGeracaoVeiculosSlider.setMinorTickCount(1);
         taxaGeracaoVeiculosSlider.setBlockIncrement(0.1);
+        taxaGeracaoVeiculosSlider.setPrefWidth(200); // Definir largura fixa para o slider
         taxaGeracaoVeiculosSlider
                 .setTooltip(new Tooltip("Controla quantos veículos serão gerados por segundo (0.1 a 1.0)"));
 
-        taxaGeracaoVeiculosSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
-            Label valueLabel = (Label) grid.getChildren().get(5);
-            valueLabel.setText(String.format("%.1f", newVal.doubleValue()));
-        });
-        grid.add(taxaGeracaoVeiculosSlider, 1, row);
-
         Label valorTaxaLabel = new Label(String.format("%.1f", config.getTaxaGeracaoVeiculos()));
         valorTaxaLabel.setStyle("-fx-font-weight: bold;");
-        grid.add(valorTaxaLabel, 2, row);
+        valorTaxaLabel.setMinWidth(30); // Garantir largura mínima para o label
+
+        taxaGeracaoVeiculosSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
+            valorTaxaLabel.setText(String.format("%.1f", newVal.doubleValue()));
+        });
+
+        sliderBox.getChildren().addAll(taxaGeracaoVeiculosSlider, valorTaxaLabel);
+        grid.add(sliderBox, 1, row);
         row++;
 
         // Horário de pico
